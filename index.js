@@ -78,10 +78,10 @@ Todo.searchByName('all')
 //         });
 //     });
 
-Todo.getById(3)
-.then(t => {
-        console.log(`Task ${t.name} belongs to user ${t.user_id}!`);
-});
+// Todo.getById(3)
+// .then(t => {
+//         console.log(`Task ${t.name} belongs to user ${t.user_id}!`);
+// });
 
 // User.add('jeff')
 // User.add('jeff')

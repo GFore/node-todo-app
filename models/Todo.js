@@ -63,7 +63,7 @@ class Todo {
     
     //UDATE
     // Todo class method for updating the name of a todo
-    static updateName(id, name) {
+    static updateTodoName(id, name) {
         return db.result(`update todos
             set name=$2
         where id=$1`, [id, name]);
@@ -136,17 +136,19 @@ class Todo {
     // Todo instance method for setting the completion status of a todo to false
     markPending() {
         return db.result(`update todos 
-            set completed=$2 
+        set completed=$2 
         where id=$1`, [this.id, false]);
     }
-
-
+    
+    
     // DELETE
+    // Todo instance method for deleting the todo
     delete(){
         return db.result(`delete from todos
-                        where id = $1`, [this.id]);        
+        where id = $1`, [this.id]);        
     }
-
+    
+    // Todo class method for deleting the specified todo
     static deleteById(id) {
         return db.result(`delete from todos
                         where id = $1`, [id]);

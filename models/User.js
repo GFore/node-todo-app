@@ -95,13 +95,19 @@ class User {
 
 
     // DELETE
+    // User instance method for deleting the user from the 
+    // users db, which will cascade to delete all todos assigned
+    // to that user from the todos db
     delete(){
         return db.result(`
         delete from users
         where id = $1
         `, [this.id]);        
     }
-
+    
+    // User class method for deleting the specified user from the 
+    // users db, which will cascade to delete all todos assigned
+    // to that user from the todos db
     static deleteById(id) {
         return db.result(`
         delete from users
