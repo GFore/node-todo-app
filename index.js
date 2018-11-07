@@ -1,14 +1,29 @@
 require('dotenv').config();
 
-// const Todo = require('./models/Todo');
+const Todo = require('./models/Todo');
 const User = require('./models/User');
 
-User.searchByName('a')
-    .then(users => {
-        console.log(users);
+Todo.searchByName('all')
+    .then(todos => {
+        console.log(todos);
     });
 
-// User.getById(6)
+// User.getById(1)
+//     .then(u => {
+//         u.assignTodo(2);
+//         return u;
+//     })
+//     .then(u => {
+//         u.getTodos()
+//         .then(todos => {
+//             console.log(`${u.name} has ${todos.length} things todo`);
+//             console.log(todos);
+//         })
+//     });
+
+//User.assignToUser(2, 3);
+
+
 //     .then(u => {
 //         u.delete();
 //     });
@@ -20,6 +35,7 @@ User.searchByName('a')
 //         allUsers.forEach(user => {
 //             console.log(user.name);
 //         });
+
 //     })
 
 // User.getById(1)
@@ -52,8 +68,20 @@ User.searchByName('a')
 // });
 
 
+// Todo.add('call for help', false, 1)
+//     .then(newTodo => console.log(newTodo));
 
+// Todo.getAll()
+//     .then(todoArr => {
+//         todoArr.forEach(todoItem => {
+//             console.log(todoItem);
+//         });
+//     });
 
+Todo.getById(3)
+.then(t => {
+        console.log(`Task ${t.name} belongs to user ${t.user_id}!`);
+});
 
 // User.add('jeff')
 // User.add('jeff')
@@ -81,6 +109,8 @@ User.searchByName('a')
 // User.deleteById('asdfasdfasf')
 //     .then(result => { console.log(result); })
 
+// Todo.deleteById(1)
+//     .then(result => { console.log(result); })
 // Todo.deleteById(1)
 //     .then(result => { console.log(result); })
 

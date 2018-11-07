@@ -2,15 +2,11 @@ const db = require('./db');
 
 // declare a class named "User"
 class User {
-    // what properties should
-    // a user start off with?
-    // `constructor` is a method
-    // that is automatically 
+    // what properties should a user start off with?
+    // `constructor` is a method that is automatically 
     // called when you create a user
     constructor(id, name) {
-        // define properties that
-        // are also the names
-        // of the database columns
+        // define properties that are the names of the columns
         this.id = id;
         this.name = name;
     }
@@ -68,9 +64,35 @@ class User {
         `, [this.id]);
     }
 
-
-
     // UPDATE
+    // User instance method for updating the name of the user
+    updateName(name) {
+        this.name = name;
+        return db.result(`
+            update users
+                set name=$2
+            where id=$1`,
+            [this.id, name]);
+    }
+    
+    // User class method for assigning a todo to any user
+    static assignUserToTodo(userId, todoId) {
+        return db.result(`
+            update todos
+                set user_id = $2
+            where id = $1`,
+            [todoId, userId]);
+    }
+
+    // User instance method for assigning a todo to the user
+    assignTodo(todoId) {
+        return db.result(`
+            update todos
+                set user_id = $2
+            where id = $1`, [todoId, this.id]
+        );
+    }
+
 
     // DELETE
     delete(){
@@ -88,20 +110,13 @@ class User {
     }
 
 
-    // // a method is a function "belongs"
-    // // to an object
+    // User instance method for greeting another user
     greet(otherUser) {
         console.log(`Hello ${otherUser.name}, I am ${this.name}`);
     }
 }
 
-
-
-
-
-
-
-
+module.exports = User;
 
 
 
@@ -146,13 +161,13 @@ class User {
 
 // ============================================
 // UPDATE
-function updateName(id, name) {
-    return db.result(`
-        update users
-            set name=$2
-        where id=$1
-    `, [id, name]);
-}
+// function updateName(id, name) {
+//     return db.result(`
+//         update users
+//             set name=$2
+//         where id=$1
+//     `, [id, name]);
+// }
 
 // ============================================
 // DELETE
@@ -165,7 +180,7 @@ function updateName(id, name) {
 
 // ============================================
 
-module.exports = User;
+
 // module.exports = {
 //     add,
 //     deleteById,
