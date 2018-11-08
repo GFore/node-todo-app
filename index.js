@@ -1,12 +1,48 @@
 require('dotenv').config();
 
+const express = require('express');
+const app = express();
+
 const Todo = require('./models/Todo');
 const User = require('./models/User');
 
-Todo.searchByName('all')
-    .then(todos => {
-        console.log(todos);
-    });
+// Listen for a GET request
+app.get('/users', (req, res) => {
+    User.getAll()
+        .then(allUsers => {
+            res.send(allUsers);
+        })
+});
+
+app.get('/users/:id(\\d+)', (req, res) => {
+    console.log(req.params.id);
+    User.getById(req.params.id)
+        .catch(err => {
+            res.send({message: `no soup for you!`})
+        })
+        .then(userInfo => {
+            res.send(`User ${userInfo.id}'s name is ${userInfo.name}`);
+        })
+});
+
+// app.get('/', (req, res) => {
+//     res.send('<h1>Helllllloooo Expresss</h1><p>This is an express app</p><ol>'
+//     + '<li>edit index.js</li>'
+//     + '<li>enter node index.js</li>'
+//     + '<li>open localhost:3000 in a browser</li>'
+//     + '<li>stare in amazement</li>'
+//     + '</ol>');
+// });
+
+app.listen(3000, () => {
+    console.log('Express app is ready');
+})
+
+function hide() {
+// Todo.searchByName('all')
+//     .then(todos => {
+//         console.log(todos);
+//     });
 
 // User.getById(1)
 //     .then(u => {
@@ -193,3 +229,4 @@ Todo.searchByName('all')
 //         console.log(result.rowCount);
 //     })
 
+}
